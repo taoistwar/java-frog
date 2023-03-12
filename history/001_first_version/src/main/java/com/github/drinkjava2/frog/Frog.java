@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 the original author or authors. 
+ * Copyright 2018 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
  * the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required by
@@ -31,9 +31,9 @@ import com.github.drinkjava2.frog.env.Env;
 /**
  * Frog = brain + body(mouth, eye, leg), but now let's focus on brain, ignore
  * body
- * 
+ *
  * 为了简化模型，这个类里出现多个固定数值的编码，以后要改进成可以可以放在蛋里遗传进化的动态数值，先让生命延生是第一步，优化是以后的事
- * 
+ *
  * @author Yong Zhu
  * @since 1.0.0
  */
@@ -57,7 +57,7 @@ public class Frog {
 
 	public int x;
 	public int y;
-	public long energy = 10000;
+	public long energy = 10000; // 能量，用尽死亡s
 	public Egg egg;
 	public boolean alive = true; // if dead set to false
 	public int moveCount = 0; // how many times moved
@@ -96,7 +96,7 @@ public class Frog {
 					Zone.copyXY(randomPosInZone(g.groupInputZone), c.outputs[j]);
 					c.outputs[j].radius = g.cellOutputRadius;
 				}
-				cells.add(c);
+				this.cells.add(c);
 			}
 		}
 		this.egg = egg;// 保留一份蛋，如果没被淘汰掉，将来下蛋时要用这个蛋来下新蛋
@@ -106,7 +106,7 @@ public class Frog {
 	public boolean active(Env env) {
 		if (!alive)
 			return false;
-		if (x < 0 || x >= env.ENV_XSIZE || y < 0 || y >= env.ENV_YSIZE) {// 越界者死！
+		if (x < 0 || x >= env.ENV_X_SIZE || y < 0 || y >= env.ENV_Y_SIZE) {// 越界者死！
 			alive = false;
 			return false;
 		}
@@ -132,7 +132,7 @@ public class Frog {
 	/** 如果青蛙位置与food重合，吃掉它 */
 	private void checkFoodAndEat(Env env) {
 		boolean eatedFood = false;
-		if (x >= 0 && x < env.ENV_XSIZE && y > 0 && y < env.ENV_YSIZE)
+		if (x >= 0 && x < env.ENV_X_SIZE && y > 0 && y < env.ENV_Y_SIZE)
 			if (env.foods[x][y] > 0) {
 				env.foods[x][y] = 0;
 				energy = energy + 1000;// 吃掉food，能量境加
@@ -159,7 +159,7 @@ public class Frog {
 
 	private void moveUp(Env env) {
 		y += 1;
-		if (y < 0 || y >= env.ENV_YSIZE) {
+		if (y < 0 || y >= env.ENV_Y_SIZE) {
 			alive = false;
 			return;
 		}
@@ -168,7 +168,7 @@ public class Frog {
 
 	private void moveDown(Env env) {
 		y -= 1;
-		if (y < 0 || y >= env.ENV_YSIZE) {
+		if (y < 0 || y >= env.ENV_Y_SIZE) {
 			alive = false;
 			return;
 		}
@@ -177,7 +177,7 @@ public class Frog {
 
 	private void moveLeft(Env env) {
 		x -= 1;
-		if (x < 0 || x >= env.ENV_XSIZE) {
+		if (x < 0 || x >= env.ENV_X_SIZE) {
 			alive = false;
 			return;
 		}
@@ -186,7 +186,7 @@ public class Frog {
 
 	private void moveRight(Env env) {
 		x += 1;
-		if (x < 0 || x >= env.ENV_XSIZE) {
+		if (x < 0 || x >= env.ENV_X_SIZE) {
 			alive = false;
 			return;
 		}

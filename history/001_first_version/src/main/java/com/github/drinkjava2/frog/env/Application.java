@@ -20,11 +20,11 @@ public class Application {
 	public static JFrame mainFrame = new JFrame();
 
 	public static void main(String[] args) throws InterruptedException {
+		Env env = new Env();
+
 		mainFrame.setLayout(null);
 		mainFrame.setSize(520, 550); // 窗口大小
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // 关闭时退出程序
-
-		Env env = new Env();
 		mainFrame.add(env);
 		mainFrame.setVisible(true);
 		env.run();

@@ -19,62 +19,66 @@ import com.github.drinkjava2.frog.util.EggTool;
 @SuppressWarnings("serial")
 public class Env extends JPanel {
 	/** Speed of test */
-	public static int SHOW_SPEED =1;
+	public static int SHOW_SPEED = 1;
 
 	/** Steps of one test round */
 	public static int STEPS_PER_ROUND = 3000;
 
 	/** Delete eggs at beginning of each run */
 	public static final boolean DELETE_EGGS = true;// 每次运行是否先删除保存的蛋
-	
+
 	/** Virtual environment x size is 500 pixels */
-	public int ENV_XSIZE = 300;
+	public int ENV_X_SIZE = 300;
 
 	/** Virtual environment y size is 500 pixels */
-	public int ENV_YSIZE = 300;
+	public int ENV_Y_SIZE = 300;
 
-	public byte[][] foods = new byte[ENV_XSIZE][ENV_YSIZE];
+	public byte[][] foods = new byte[ENV_X_SIZE][ENV_Y_SIZE];
 
 	public int FOOD_QTY = 2000; // as name
 
-	public int EGG_QTY =80; // as name
+	public int EGG_QTY = 80; // as name
 
 	public List<Frog> frogs = new ArrayList<Frog>();
 	public List<Egg> eggs;
 
 	static {
-		System.out.println("唵缚悉波罗摩尼莎诃!"); // 杀生前先打印往生咒，见码云issue#IW4H8
-		if (DELETE_EGGS)
+		if (DELETE_EGGS) {
+			for (int i = 0; i < 1000000; i++) {
+				// 杀生前先打印往生咒，见码云issue#IW4H8
+				System.out.println("唵缚悉波罗摩尼莎诃!");
+			}
 			EggTool.deleteEggs();
+		}
 	}
-	
+
 	public Env() {
 		super();
 		this.setLayout(null);// 空布局
-		this.setBounds(100, 100, ENV_XSIZE, ENV_YSIZE);
+		this.setBounds(100, 100, ENV_X_SIZE, ENV_Y_SIZE);
 	}
 
 	private void rebuildFrogAndFood() {
 		frogs.clear();
-		for (int i = 0; i < ENV_XSIZE; i++) {// clear foods
-			for (int j = 0; j < ENV_YSIZE; j++) {
+		for (int i = 0; i < ENV_X_SIZE; i++) {// clear foods
+			for (int j = 0; j < ENV_Y_SIZE; j++) {
 				foods[i][j] = 0;
 			}
 		}
 		Random rand = new Random();
 		for (int i = 0; i < eggs.size(); i++) { // 1个Egg生出4个Frog
 			for (int j = 0; j < 4; j++) {
-				frogs.add(new Frog(ENV_XSIZE / 2 + rand.nextInt(90), ENV_YSIZE / 2 + rand.nextInt(90), eggs.get(i)));
+				frogs.add(new Frog(ENV_X_SIZE / 2 + rand.nextInt(90), ENV_Y_SIZE / 2 + rand.nextInt(90), eggs.get(i)));
 			}
 		}
-		System.out.println("Created "+4*eggs.size() +" frogs");
+		System.out.println("Created " + 4 * eggs.size() + " frogs");
 		for (int i = 0; i < FOOD_QTY; i++)
-			foods[rand.nextInt(ENV_XSIZE - 3)][rand.nextInt(ENV_YSIZE - 3)] = 1;
+			foods[rand.nextInt(ENV_X_SIZE - 3)][rand.nextInt(ENV_Y_SIZE - 3)] = 1;
 	}
 
 	private void drawFood(Graphics g) {
-		for (int x = 0; x < ENV_XSIZE; x++)
-			for (int y = 0; y < ENV_YSIZE; y++)
+		for (int x = 0; x < ENV_X_SIZE; x++)
+			for (int y = 0; y < ENV_Y_SIZE; y++)
 				if (foods[x][y] > 0) {
 					g.fillOval(x, y, 4, 4);
 				}

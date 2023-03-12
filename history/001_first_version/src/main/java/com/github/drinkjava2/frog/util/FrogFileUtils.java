@@ -20,7 +20,7 @@ import java.io.InputStream;
 
 /**
  * File Utilities usually used inside of compiler
- * 
+ *
  * @author Yong Zhu
  * @since 1.0.0
  */
@@ -35,14 +35,14 @@ public class FrogFileUtils {
 		return file.delete(); // NOSONAR
 	}
 
-	public static void writeFile(String fileFullPath, byte[] byteArry) {
+	public static void writeFile(String fileFullPath, byte[] byteArray) {
 		File file = new File(fileFullPath);
 		if (!file.getParentFile().exists())
 			file.getParentFile().mkdirs();
 		FileOutputStream fos = null;
 		try {
 			fos = new FileOutputStream(file);
-			fos.write(byteArry);
+			fos.write(byteArray);
 			fos.close();
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 the original author or authors. 
+ * Copyright 2018 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
  * the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required by
@@ -50,8 +50,9 @@ public class EggTool {
 				newEggs.add(env.frogs.get(i).layEgg());
 
 			if (JSON_FILE_FORMAT) {
-//				String newEggsString = JSON.toJSONString(newEggs);
-//				FrogFileUtils.writeFile(Application.CLASSPATH + "eggs.json", newEggsString, "utf-8");
+				// String newEggsString = JSON.toJSONString(newEggs);
+				// FrogFileUtils.writeFile(Application.CLASSPATH + "eggs.json", newEggsString,
+				// "utf-8");
 			} else {
 				FileOutputStream fo = new FileOutputStream(Application.CLASSPATH + "eggs.ser");
 				ObjectOutputStream so = new ObjectOutputStream(fo);
@@ -86,18 +87,20 @@ public class EggTool {
 	public static void loadEggs(Env env) {
 		boolean errorfound = false;
 		if (JSON_FILE_FORMAT) {
-//			String eggsString = FrogFileUtils.readFile(Application.CLASSPATH + "eggs.json", "utf-8");
-//			if (eggsString != null) {
-//				List<JSONObject> jsonEggs = (List<JSONObject>) JSON.parse(eggsString);
-//				env.eggs = new ArrayList<Egg>();
-//				for (JSONObject json : jsonEggs) {
-//					Egg egg = json.toJavaObject(Egg.class);
-//					env.eggs.add(egg);
-//				}
-//				System.out.println(
-//						"Loaded " + env.eggs.size() + " eggs from file '" + Application.CLASSPATH + "eggs.json" + "'.");
-//			} else
-//				errorfound = true;
+			// String eggsString = FrogFileUtils.readFile(Application.CLASSPATH +
+			// "eggs.json", "utf-8");
+			// if (eggsString != null) {
+			// List<JSONObject> jsonEggs = (List<JSONObject>) JSON.parse(eggsString);
+			// env.eggs = new ArrayList<Egg>();
+			// for (JSONObject json : jsonEggs) {
+			// Egg egg = json.toJavaObject(Egg.class);
+			// env.eggs.add(egg);
+			// }
+			// System.out.println(
+			// "Loaded " + env.eggs.size() + " eggs from file '" + Application.CLASSPATH +
+			// "eggs.json" + "'.");
+			// } else
+			// errorfound = true;
 		} else {
 			try {
 				FileInputStream eggsFile = new FileInputStream(Application.CLASSPATH + "eggs.ser");
@@ -107,7 +110,7 @@ public class EggTool {
 						"Loaded " + env.eggs.size() + " eggs from file '" + Application.CLASSPATH + "eggs.ser" + "'.");
 				eggsInputStream.close();
 			} catch (Exception e) {
-				errorfound = true; 
+				errorfound = true;
 			}
 		}
 		if (errorfound) {
@@ -118,7 +121,7 @@ public class EggTool {
 				env.eggs.add(Egg.createBrandNewEgg());
 		}
 	}
-	
+
 	public static void deleteEggs() {
 		System.out.println("Delete exist egg file: '" + Application.CLASSPATH + "eggs.ser'");
 		FrogFileUtils.deleteFile(Application.CLASSPATH + "eggs.ser");
